@@ -40,12 +40,17 @@ dependencies:
   path_provider: ^2.0.2
   intl: ^0.17.0
   expandable_text: ^2.3.0
+  firebase_core: ^2.3.0
+  firebase_crashlytics: ^3.0.6
+  flutter_bloc: ^8.0.0
+  rxdart: ^0.27.1
 
 dev_dependencies:
   mockito: ^5.0.8
   build_runner: ^2.0.4
   flutter_test:
     sdk: flutter
+  bloc_test: ^9.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
