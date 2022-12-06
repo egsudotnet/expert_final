@@ -1,0 +1,45 @@
+{
+  "page": 1,
+  "results": [
+    {
+      "backdrop_path": "/99vBORZixICa32Pwdwj0lWcr8K.jpg",
+      "first_air_date": "2021-09-03",
+      "genre_ids": [
+        10764
+      ],
+      "id": 130392,
+      "name": "The DAmelio Show",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_name": "The DAmelio Show",
+      "overview": "From relative obscurity",
+      "popularity": 23.06,
+      "poster_path": "/phv2Jc4H8cvRzvTKb9X1uKMboTu.jpg",
+      "vote_average": 9,
+      "vote_count": 3135
+    },
+    {
+      "backdrop_path": "/84XPpjGvxNyExjSuLQe0SzioErt.jpg",
+      "first_air_date": "2008-01-20",
+      "genre_ids": [
+        18
+      ],
+      "id": 1396,
+      "name": "Breaking Bad",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_name": "Breaking Bad",
+      "overview": "When Walter White, a New Mexico chemistry teacher.",
+      "popularity": 458.345,
+      "poster_path": "/ggFHVNu6YYI5L9pCfOacjizRGt.jpg",
+      "vote_average": 8.8,
+      "vote_count": 10362
+    }
+  ],
+  "total_pages": 133,
+  "total_results": 2658
+}

@@ -1,0 +1,106 @@
+{
+  "adult": false,
+  "backdrop_path": "/99vBORZixICa32Pwdwj0lWcr8K.jpg",
+  "created_by": [],
+  "episode_run_time": [],
+  "first_air_date": "2021-09-03",
+  "genres": [
+    {
+      "id": 10764,
+      "name": "Reality"
+    }
+  ],
+  "homepage": "https://www.hulu.com/series/the-damelio-show-ad993806-7961-4eb3-9f92-e7b9a349ae22",
+  "id": 130392,
+  "in_production": true,
+  "languages": [
+    "en"
+  ],
+  "last_air_date": "2022-10-26",
+  "last_episode_to_air": {
+    "air_date": "2022-10-26",
+    "episode_number": 10,
+    "id": 4025919,
+    "name": "This Season Has Been a Rollercoaster",
+    "overview": "As Charli and her new guy friend face harsh rumors",
+    "production_code": "",
+    "runtime": 48,
+    "season_number": 2,
+    "show_id": 130392,
+    "still_path": "/vZW7gXM3jwTI7LG8BRxuLmh1bKZ.jpg",
+    "vote_average": 1.0,
+    "vote_count": 1
+  },
+  "name": "The D'Amelio Show",
+  "next_episode_to_air": null,
+  "networks": [
+    {
+      "id": 453,
+      "name": "Hulu",
+      "logo_path": "/pqUTCleNUiTLAVlelGxUgWn1ELh.png",
+      "origin_country": "US"
+    }
+  ],
+  "number_of_episodes": 18,
+  "number_of_seasons": 2,
+  "origin_country": [
+    "US"
+  ],
+  "original_language": "en",
+  "original_name": "The DAmelio Show",
+  "overview": "From relative obscurity and a seemingly normal life.",
+  "popularity": 29.264,
+  "poster_path": "/phv2Jc4H8cvRzvTKb9X1uKMboTu.jpg",
+  "production_companies": [
+    {
+      "id": 83966,
+      "logo_path": "/q2BuooxLm16EvWcUY4CMJo3PSNo.png",
+      "name": "The Intellectual Property Corporation",
+      "origin_country": "US"
+    },
+    {
+      "id": 165537,
+      "logo_path": null,
+      "name": "The D'Amelios",
+      "origin_country": "US"
+    }
+  ],
+  "production_countries": [
+    {
+      "iso_3166_1": "US",
+      "name": "United States of America"
+    }
+  ],
+  "seasons": [
+    {
+      "air_date": "2021-09-03",
+      "episode_count": 8,
+      "id": 204453,
+      "name": "Season 1",
+      "overview": "",
+      "poster_path": "/z0iCS5Znx7TeRwlYSd4c01Z0lFx.jpg",
+      "season_number": 1
+    },
+    {
+      "air_date": "2022-09-28",
+      "episode_count": 10,
+      "id": 303094,
+      "name": "Season 2",
+      "overview": "As personal and professional relationships overlap, the D'Amelio family faces new challenges at every turn, from public scandals to maintaining mental health, as they share the truth behind their online lives.",
+      "poster_path": "/phv2Jc4H8cvRzvTKb9X1uKMboTu.jpg",
+      "season_number": 2
+    }
+  ],
+  "spoken_languages": [
+    {
+      "english_name": "English",
+      "iso_639_1": "en",
+      "name": "English"
+    }
+  ],
+  "status": "Returning Series",
+  "tagline": "Fame is one thing, family is everything.",
+  "type": "Reality",
+  "vote_average": 9.0,
+  "vote_count": 3142
+}

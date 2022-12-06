@@ -1,0 +1,44 @@
+{
+    "page": 1,
+    "results": [
+        {
+            "backdrop_path": "/1PXvJf3L0UK59xiW3OIa8QL7g5p.jpg",
+            "first_air_date": "1990-09-25",
+            "genre_ids": [
+                10759,
+                10765
+            ],
+            "id": 18303,
+            "name": "Ultraman: Towards the Future",
+            "origin_country": [
+                "AU"
+            ],
+            "original_language": "en",
+            "original_name": "Ultraman: Towards the Future",
+            "overview": "Jack Shindo and Stanley Haggard are members of the first manned expedition to Mars.",
+            "popularity": 3.51,
+            "poster_path": "/kQ4Tn2ScxL9atf2yEOToBIYZX8i.jpg",
+            "vote_average": 0,
+            "vote_count": 0
+        },
+        {
+            "backdrop_path": null,
+            "first_air_date": "",
+            "genre_ids": [],
+            "id": 28247,
+            "name": "Towards The Year 2000",
+            "origin_country": [
+                "AU"
+            ],
+            "original_language": "en",
+            "original_name": "Towards The Year 2000",
+            "overview": "",
+            "popularity": 0.6,
+            "poster_path": null,
+            "vote_average": 0,
+            "vote_count": 0
+        }
+    ],
+    "total_pages": 1,
+    "total_results": 7
+}

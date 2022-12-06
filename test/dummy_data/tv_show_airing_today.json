@@ -1,0 +1,23 @@
+{
+  "page": 1,
+  "results": [
+    {
+      "backdrop_path": "/99vBORZixICa32Pwdwj0lWcr8K.jpg",
+      "first_air_date": "2021-09-03",
+      "genre_ids": [10764],
+      "id": 130392,
+      "name": "The DAmelio Show",
+      "origin_country": ["US"],
+      "original_language": "en",
+      "original_name": "The DAmelio Show",
+      "overview":
+          "From relative obscurity",
+      "popularity": 25.383,
+      "poster_path": "/phv2Jc4H8cvRzvTKb9X1uKMboTu.jpg",
+      "vote_average": 9,
+      "vote_count": 3134
+    }
+  ],
+  "total_pages": 9,
+  "total_results": 167
+}
