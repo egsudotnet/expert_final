@@ -1,4 +1,3 @@
- 
 import 'package:ditonton/domain/entities/tv.dart';
 import 'package:ditonton/domain/usecases/get_popular_tvs.dart';
 import 'package:equatable/equatable.dart';

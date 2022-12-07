@@ -65,6 +65,11 @@ void init() {
     ),
   ); 
   locator.registerFactory(
+    () => MovieSearchBloc(
+      locator(),
+    ),
+  ); 
+  locator.registerFactory(
     () => PopularMoviesBloc(
       locator(),
     ),
@@ -99,6 +104,11 @@ void init() {
     ),
   );
   locator.registerFactory(
+    () => TvNowPlayingBloc(
+      locator(),
+    ),
+  ); 
+  locator.registerFactory(
     () => TvSearchBloc(
       locator(),
     ),
@@ -118,18 +128,7 @@ void init() {
       getWatchlistTvs: locator(),
     ),
   );
-
-  //BLoC
-  locator.registerFactory(
-    () => MovieSearchBloc(
-      locator(),
-    ),
-  ); 
-  locator.registerFactory(
-    () => TvNowPlayingBloc(
-      locator(),
-    ),
-  ); 
+ 
 
 
   // use case - movies

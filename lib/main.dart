@@ -91,15 +91,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => di.locator<WatchlistTvNotifier>(),
         ),
-        
-        //BLoC
-        
-        BlocProvider(
-          create: (_) => di.locator<MovieSearchBloc>(),
-        ),
-        BlocProvider(
-          create: (_) => di.locator<TvSearchBloc>(),
-        ),
+         
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

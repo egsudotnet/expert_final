@@ -7,13 +7,13 @@ part 'top_rated_tvs_state.dart';
 part 'top_rated_tvs_event.dart';
 
 class TopRatedTvBloc extends Bloc<TopRatedTvEvent, TopRatedTvState> {
-  final GetTopRatedTvs _gettoTopRatedTv;
+  final GetTopRatedTvs _getTopRatedTv;
 
-  TopRatedTvBloc(this._gettoTopRatedTv) : super(TopRatedTvEmpty()) {
+  TopRatedTvBloc(this._getTopRatedTv) : super(TopRatedTvEmpty()) {
     on<OnTopRatedTv>((event, emit) async {
 
       emit(TopRatedTvLoading());
-      final result = await _gettoTopRatedTv.execute();
+      final result = await _getTopRatedTv.execute();
       result.fold((failure) {
         emit(TopRatedTvError(failure.message));
       }, (success) {

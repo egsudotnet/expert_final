@@ -1,5 +1,4 @@
 import 'package:ditonton/presentation/bloc/popular_tvs/popular_tvs_bloc.dart';
-import 'package:ditonton/presentation/bloc/tv_now_playing/tv_now_playing_bloc.dart';
 import 'package:ditonton/presentation/widgets/tv_card_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,8 +14,8 @@ class _PopularTvsPageState extends State<PopularTvsPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() =>
-        () => context.read<TvNowPlayingBloc>().add(OnTvNowPlaying()));
+    Future.microtask(
+        () => context.read<PopularTvsBloc>().add(OnPopularTvs()));
   }
 
   @override
