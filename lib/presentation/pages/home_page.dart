@@ -15,6 +15,7 @@ import 'package:ditonton/presentation/pages/search_page.dart';
 import 'package:ditonton/presentation/pages/top_rated_movies_page.dart';
 import 'package:ditonton/presentation/pages/top_rated_tvs_page.dart';
 import 'package:ditonton/presentation/pages/tv_detail_page.dart';
+import 'package:ditonton/presentation/pages/tv_now_playing_page.dart';
 import 'package:ditonton/presentation/pages/watchlist_movies_page.dart';
 import 'package:ditonton/presentation/pages/watchlist_tvs_page.dart';
 import 'package:ditonton/presentation/widgets/image_card.dart';
@@ -208,9 +209,10 @@ class ResultTv extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Now Playing',
-            style: kHeading6,
+          _buildSubHeading(
+            title: 'Popular',
+            onTap: () =>
+                Navigator.pushNamed(context, TvNowPlayingPage.ROUTE_NAME),
           ),
           BlocBuilder<TvNowPlayingBloc, TvNowPlayingState>(
               builder: (context, state) {

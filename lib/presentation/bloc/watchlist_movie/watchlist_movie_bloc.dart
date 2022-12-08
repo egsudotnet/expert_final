@@ -33,8 +33,7 @@ class MovieWatchlistBloc extends Bloc<MovieWatchlistEvent, MovieWatchlistState> 
         emit(MovieWatchlistHasData(success));
       });
     });
-
-    
+ 
     on<OnMovieWatchlistStatus>((event, emit) async { 
       final result = await _getWatchlistStatus.execute(event.id);
       emit(MovieWatchlistStatus(result));
@@ -48,8 +47,14 @@ class MovieWatchlistBloc extends Bloc<MovieWatchlistEvent, MovieWatchlistState> 
         emit(MovieWatchlistMessage(success));
       });
     });
-    
-
-
+ 
+    on<OnMovieWatchlistSave>((event, emit) async { 
+      final result = await _saveWatchlist.execute(event.movieDetail);
+      result.fold((failure) {
+        emit(MovieWatchlistError(failure.message));
+      }, (success) {
+        emit(MovieWatchlistMessage(success));
+      });
+    });
   }
 }
