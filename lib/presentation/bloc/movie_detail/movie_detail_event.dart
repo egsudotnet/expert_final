@@ -45,12 +45,4 @@ class OnMovieDetailRemoveWatchlist extends MovieDetailEvent {
   OnMovieDetailRemoveWatchlist(this.movieDetail);
   @override
   List<Object> get props => [movieDetail];
-} 
- 
-class OnMovieDetailGetRecomendation extends MovieDetailEvent {
-  final int id;
-
-  OnMovieDetailGetRecomendation(this.id);
-  @override
-  List<Object> get props => [id];
-} 
+}

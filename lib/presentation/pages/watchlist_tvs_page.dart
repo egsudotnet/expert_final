@@ -59,7 +59,7 @@ class _WatchlistTvsPageState extends State<WatchlistTvsPage>
                 child: Text(state.message),
               );
             }else{
-              return SizedBox();
+              return Container();
             }
           },
         ),

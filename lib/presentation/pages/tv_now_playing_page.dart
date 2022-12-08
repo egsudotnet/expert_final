@@ -46,7 +46,7 @@ class _TvNowPlayingPageState extends State<TvNowPlayingPage> {
                 child: Text(state.message),
               );
             }else{
-              return SizedBox();
+              return Container();
             }
           },
         ),

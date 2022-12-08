@@ -50,13 +50,3 @@ class MovieDetailStatus extends MovieDetailState {
   @override
   List<Object> get props => [result];
 }
- 
- 
-class MovieDetailHasRecomendation extends MovieDetailState {
-  final List<Movie> result;
- 
-  MovieDetailHasRecomendation(this.result);
- 
-  @override
-  List<Object> get props => [result];
-}

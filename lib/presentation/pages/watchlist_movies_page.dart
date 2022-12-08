@@ -59,7 +59,7 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
                 child: Text(state.message),
               );
             }else{
-              return SizedBox();
+              return Container();
             }
           },
         ),

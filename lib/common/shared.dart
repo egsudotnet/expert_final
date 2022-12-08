@@ -18,18 +18,13 @@ class Shared {
       } else {
         bytes = (await rootBundle.load('assets/themoviedb.pem')).buffer.asUint8List();
       }
-      log('bytes $bytes');
       context.setTrustedCertificatesBytes(bytes);
-      log('createHttpClient() - cert added!');
     } on TlsException catch (e) {
       if (e.osError?.message != null && e.osError!.message.contains('CERT_ALREADY_IN_HASH_TABLE')) {
-        log('createHttpClient() - cert already trusted! Skipping.');
       } else {
-        log('createHttpClient().setTrustedCertificateBytes EXCEPTION: $e');
         rethrow;
       }
     } catch (e) {
-      log('unexpected error $e');
       rethrow;
     }
     HttpClient httpClient = HttpClient(context: context);

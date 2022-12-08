@@ -1,9 +1,13 @@
  
+import 'dart:async';
+
 import 'package:ditonton/domain/entities/tv.dart';
 import 'package:ditonton/domain/entities/tv_detail.dart';
-import 'package:ditonton/domain/usecases/get_watchlist_status_tv.dart';
 import 'package:ditonton/domain/usecases/get_watchlist_tvs.dart';
+import 'package:ditonton/domain/usecases/get_watchlist_status.dart';
+import 'package:ditonton/domain/usecases/remove_watchlist.dart';
 import 'package:ditonton/domain/usecases/remove_watchlist_tv.dart';
+import 'package:ditonton/domain/usecases/save_watchlist.dart';
 import 'package:ditonton/domain/usecases/save_watchlist_tv.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,7 +17,7 @@ part 'watchlist_tv_event.dart';
 
 class TvWatchlistBloc extends Bloc<TvWatchlistEvent, TvWatchlistState> {
   final GetWatchlistTvs _getWatchlistTv;
-  final GetWatchListStatusTv _getWatchlistStatus;
+  final GetWatchListStatus _getWatchlistStatus;
   final RemoveWatchlistTv _removeWatchlist;
   final SaveWatchlistTv _saveWatchlist;
 
@@ -46,8 +50,8 @@ class TvWatchlistBloc extends Bloc<TvWatchlistEvent, TvWatchlistState> {
       }, (success) {
         emit(TvWatchlistMessage(success));
       });
-    }); 
-     
+    });
+ 
     on<OnTvWatchlistSave>((event, emit) async { 
       final result = await _saveWatchlist.execute(event.tvDetail);
       result.fold((failure) {

@@ -46,7 +46,7 @@ class _TopRatedTvsPageState extends State<TopRatedTvsPage> {
                 child: Text(state.message),
               );
             }else{
-              return SizedBox();
+              return Container();
             }
           },
         ),

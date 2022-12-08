@@ -46,7 +46,7 @@ class _TopRatedMoviesPageState extends State<TopRatedMoviesPage> {
                 child: Text(state.message),
               );
             }else{
-              return SizedBox();
+              return Container();
             }
           },
         ),

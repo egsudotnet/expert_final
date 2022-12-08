@@ -66,9 +66,7 @@ class ResultMovie extends StatelessWidget {
                     ),
                   );
                 } else {
-                  return Expanded(
-                    child: Container(),
-                  );
+                  return Container();
                 }
               },
             )
@@ -103,9 +101,7 @@ class ResultTv extends StatelessWidget {
                     ),
                   );
                 } else {
-                  return Expanded(
-                    child: Container(),
-                  );
+                  return Container();
                 }
               },
             )
