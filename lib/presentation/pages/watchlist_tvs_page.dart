@@ -26,10 +26,9 @@ class _WatchlistTvsPageState extends State<WatchlistTvsPage>
     routeObserver.subscribe(this, ModalRoute.of(context)!);
   }
 
-  // void didPopNext() {
-  //   Provider.of<WatchlistTvNotifier>(context, listen: false)
-  //       .fetchWatchlistTvs();
-  // }
+  void didPopNext() {
+    context.read<TvWatchlistBloc>().add(OnTvWatchlist());
+  }
 
   @override
   Widget build(BuildContext context) {

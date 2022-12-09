@@ -50,9 +50,9 @@ void init() {
   locator.registerFactory(
     () => MovieDetailBloc(
       locator(),
-      locator(),
-      locator(),
-      locator(),
+      // locator(),
+      // locator(),
+      // locator(),
     ),
   ); 
   
@@ -94,10 +94,7 @@ void init() {
   
   locator.registerFactory(
     () => TvDetailBloc(
-      locator(),
-      locator(),
-      locator(),
-      locator(),
+      locator()
     ),
   );
   locator.registerFactory(

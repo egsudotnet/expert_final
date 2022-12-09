@@ -10,39 +10,39 @@ class OnTvDetail extends TvDetailEvent {
   List<Object> get props => [];
 }
 
-class OnTvDetailStatus extends TvDetailEvent {
-  final int id;
+// class OnTvDetailStatus extends TvDetailEvent {
+//   final int id;
  
-  OnTvDetailStatus(this.id);
+//   OnTvDetailStatus(this.id);
 
-  @override
-  List<Object> get props => [id];
-} 
+//   @override
+//   List<Object> get props => [id];
+// } 
 
 
-class Watchlist extends TvDetailEvent {
-  final TvDetail tvDetail;
+// class Watchlist extends TvDetailEvent {
+//   final TvDetail tvDetail;
  
-  Watchlist(this.tvDetail);
+//   Watchlist(this.tvDetail);
   
-  @override
-  List<Object> get props => [tvDetail];
-} 
+//   @override
+//   List<Object> get props => [tvDetail];
+// } 
 
 
-class OnTvDetailSaveWatchlist extends TvDetailEvent {
-  final TvDetail tvDetail;
+// class OnTvDetailSaveWatchlist extends TvDetailEvent {
+//   final TvDetail tvDetail;
  
-  OnTvDetailSaveWatchlist(this.tvDetail);
+//   OnTvDetailSaveWatchlist(this.tvDetail);
   
-  @override
-  List<Object> get props => [tvDetail];
-} 
+//   @override
+//   List<Object> get props => [tvDetail];
+// } 
  
-class OnTvDetailRemoveWatchlist extends TvDetailEvent {
-  final TvDetail tvDetail;
+// class OnTvDetailRemoveWatchlist extends TvDetailEvent {
+//   final TvDetail tvDetail;
 
-  OnTvDetailRemoveWatchlist(this.tvDetail);
-  @override
-  List<Object> get props => [tvDetail];
-}
+//   OnTvDetailRemoveWatchlist(this.tvDetail);
+//   @override
+//   List<Object> get props => [tvDetail];
+// }

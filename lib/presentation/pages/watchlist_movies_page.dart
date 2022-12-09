@@ -26,10 +26,9 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
     routeObserver.subscribe(this, ModalRoute.of(context)!);
   }
 
-  // void didPopNext() {
-  //   Provider.of<MovieWatchlistBloc>(context, listen: false)
-  //       .fetchWatchlistMovies();
-  // }
+  void didPopNext() {
+    context.read<MovieWatchlistBloc>().add(OnMovieWatchlist());
+  }
 
   @override
   Widget build(BuildContext context) {

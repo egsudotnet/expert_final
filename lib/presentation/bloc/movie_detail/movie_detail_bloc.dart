@@ -12,15 +12,15 @@ part 'movie_detail_event.dart';
 
 class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
   final GetMovieDetail _getMovieDetail;
-  final GetWatchListStatus _getWatchListStatus;
-  final SaveWatchlist _saveWatchlist;
-  final RemoveWatchlist _removeWatchlist;
+  // final GetWatchListStatus _getWatchListStatus;
+  // final SaveWatchlist _saveWatchlist;
+  // final RemoveWatchlist _removeWatchlist;
 
   MovieDetailBloc(
     this._getMovieDetail,
-    this._getWatchListStatus,
-    this._saveWatchlist,
-    this._removeWatchlist
+    // this._getWatchListStatus,
+    // this._saveWatchlist,
+    // this._removeWatchlist
     ) : super(MovieDetailEmpty()) {
 
     on<OnMovieDetail>((event, emit) async { 
@@ -33,27 +33,27 @@ class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
       });
     });
  
-    on<OnMovieDetailStatus>((event, emit) async { 
-      final result = await _getWatchListStatus.execute(event.id);
-      emit(MovieDetailStatus(result));
-    });
+    // on<OnMovieDetailStatus>((event, emit) async { 
+    //   final result = await _getWatchListStatus.execute(event.id);
+    //   emit(MovieDetailStatus(result));
+    // });
 
-    on<OnMovieDetailRemoveWatchlist>((event, emit) async { 
-      final result = await _removeWatchlist.execute(event.movieDetail);
-      result.fold((failure) {
-        emit(MovieDetailError(failure.message));
-      }, (success) {
-        emit(MovieDetailMessage(success));
-      });
-    });
+    // on<OnMovieDetailRemoveWatchlist>((event, emit) async { 
+    //   final result = await _removeWatchlist.execute(event.movieDetail);
+    //   result.fold((failure) {
+    //     emit(MovieDetailError(failure.message));
+    //   }, (success) {
+    //     emit(MovieDetailMessage(success));
+    //   });
+    // });
  
-    on<OnMovieDetailSaveWatchlist>((event, emit) async { 
-      final result = await _saveWatchlist.execute(event.movieDetail);
-      result.fold((failure) {
-        emit(MovieDetailError(failure.message));
-      }, (success) {
-        emit(MovieDetailMessage(success));
-      });
-    });
+    // on<OnMovieDetailSaveWatchlist>((event, emit) async { 
+    //   final result = await _saveWatchlist.execute(event.movieDetail);
+    //   result.fold((failure) {
+    //     emit(MovieDetailError(failure.message));
+    //   }, (success) {
+    //     emit(MovieDetailMessage(success));
+    //   });
+    // });
   }
 }

@@ -1,18 +1,14 @@
 part of 'movie_detail_bloc.dart';
  
-abstract class MovieDetailState extends Equatable {}
+abstract class MovieDetailState extends Equatable {
+  const MovieDetailState();
  
-class MovieDetailEmpty extends MovieDetailState {
   @override
-  // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
-}
+  List<Object> get props => [];}
  
-class MovieDetailLoading extends MovieDetailState {
-  @override
-  // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
-}
+class MovieDetailEmpty extends MovieDetailState {}
+ 
+class MovieDetailLoading extends MovieDetailState {}
  
 class MovieDetailError extends MovieDetailState {
   final String message;
@@ -42,11 +38,11 @@ class MovieDetailHasData extends MovieDetailState {
 }
 
 
-class MovieDetailStatus extends MovieDetailState {
-  final bool result;
+// class MovieDetailStatus extends MovieDetailState {
+//   final bool result;
  
-  MovieDetailStatus(this.result);
+//   MovieDetailStatus(this.result);
  
-  @override
-  List<Object> get props => [result];
-}
+//   @override
+//   List<Object> get props => [result];
+// }
