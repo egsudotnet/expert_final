@@ -1,47 +1,128 @@
 part of 'movie_detail_bloc.dart';
- 
-abstract class MovieDetailState extends Equatable {
-  const MovieDetailState();
- 
-  @override
-  List<Object> get props => [];}
- 
-class MovieDetailEmpty extends MovieDetailState {}
- 
-class MovieDetailLoading extends MovieDetailState {}
- 
-class MovieDetailError extends MovieDetailState {
-  final String message;
- 
-  MovieDetailError(this.message);
- 
-  @override
-  List<Object> get props => [message];
-}
 
-class MovieDetailMessage extends MovieDetailState {
-  final String message;
- 
-  MovieDetailMessage(this.message);
- 
+class MovieDetailState extends Equatable {
+  final MovieDetail? movieDetail;
+  final bool movieIsAdded;
+  final List<Movie> movieRecomendation;
+  final String movieMessage;
+  final String movieDetailState;
+  final String movieMessageWatchlist;
+
+  const MovieDetailState(
+      {
+      required this.movieDetail,
+      required this.movieIsAdded,
+      required this.movieRecomendation,
+      required this.movieMessage,
+      required this.movieDetailState,
+      required this.movieMessageWatchlist
+      });
+
+  factory MovieDetailState.loadFirst() {
+    return const MovieDetailState(
+      movieDetail: null,
+      movieMessage: '',
+      movieDetailState: '',
+      movieIsAdded: false,
+      movieRecomendation: [],
+      movieMessageWatchlist:""
+    );
+  }
+
+  MovieDetailState copyWith({
+    MovieDetail? movieDetail,
+    bool? movieIsAdded,
+    List<Movie>? movieRecomendation,
+    String? movieMessage,
+    String? movieDetailState,
+    String? movieMessageWatchlist  }) {
+    return MovieDetailState(
+      movieDetail: movieDetail ?? this.movieDetail,
+      movieIsAdded: movieIsAdded ?? this.movieIsAdded,
+      movieRecomendation: movieRecomendation ?? this.movieRecomendation,
+      movieMessage: movieMessage ?? this.movieMessage,
+      movieDetailState: movieDetailState ?? this.movieDetailState,
+      movieMessageWatchlist: movieMessageWatchlist ?? this.movieMessageWatchlist,
+    );
+  }
+
   @override
-  List<Object> get props => [message];
+  List<Object> get props => [];
 }
  
-class MovieDetailHasData extends MovieDetailState {
-  final MovieDetail result;
+// class MovieDetailEmpty extends MovieDetailState {}
  
-  MovieDetailHasData(this.result);
+// class MovieDetailLoading extends MovieDetailState {}
  
-  @override
-  List<Object> get props => [result];
-}
+// class MovieDetailError extends MovieDetailState {
+//   final String message;
+ 
+//   MovieDetailError(this.message);
+ 
+//   @override
+//   List<Object> get props => [message];
+// }
 
+// class MovieDetailMessage extends MovieDetailState {
+//   final String message;
+ 
+//   MovieDetailMessage(this.message);
+ 
+//   @override
+//   List<Object> get props => [message];
+// }
+ 
+// class MovieDetailHasData extends MovieDetailState {
+//   final MovieDetail result;
+ 
+//   MovieDetailHasData(this.result);
+ 
+//   @override
+//   List<Object> get props => [result];
+// }
 
-// class MovieDetailStatus extends MovieDetailState {
+// class MovieRecomendationLoading extends MovieDetailState {} 
+ 
+// class MovieRecomendationError extends MovieDetailState {
+//   final String message;
+ 
+//   MovieRecomendationError(this.message);
+ 
+//   @override
+//   List<Object> get props => [message];
+// }
+
+// class MovieRecomendationHasData extends MovieDetailState {
+//   final List<Movie> result;
+ 
+//   MovieRecomendationHasData(this.result);
+ 
+//   @override
+//   List<Object> get props => [result];
+// }
+
+// class MovieWatchlistError extends MovieDetailState {
+//   final String message;
+ 
+//   MovieWatchlistError(this.message);
+ 
+//   @override
+//   List<Object> get props => [message];
+// }
+
+// class MovieWatchlistMessage extends MovieDetailState {
+//   final String message;
+ 
+//   MovieWatchlistMessage(this.message);
+ 
+//   @override
+//   List<Object> get props => [message];
+// }
+
+// class MovieWatchlistStatus extends MovieDetailState {
 //   final bool result;
  
-//   MovieDetailStatus(this.result);
+//   MovieWatchlistStatus(this.result);
  
 //   @override
 //   List<Object> get props => [result];

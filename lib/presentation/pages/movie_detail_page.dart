@@ -2,12 +2,11 @@ import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/domain/entities/genre.dart';
 import 'package:ditonton/domain/entities/movie_detail.dart';
 import 'package:ditonton/presentation/bloc/movie_detail/movie_detail_bloc.dart';
-import 'package:ditonton/presentation/bloc/movie_recomndation/movie_recomendation_bloc.dart';
-import 'package:ditonton/presentation/bloc/watchlist_movie/watchlist_movie_bloc.dart';
 import 'package:ditonton/presentation/widgets/image_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:provider/provider.dart';
 
 class MovieDetailPage extends StatefulWidget {
   static const ROUTE_NAME = '/detail';
@@ -23,30 +22,53 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() => {
-          context.read<MovieDetailBloc>().add(OnMovieDetail(widget.id)),
-          context
-              .read<MovieRecomendationBloc>()
-              .add(OnMovieRecomendation(widget.id)),
-          context
-              .read<MovieWatchlistBloc>()
-              .add(OnMovieWatchlistStatus(widget.id))
+    Future.microtask(() {
+      Provider.of<MovieDetailBloc>(context, listen: false)
+          .add(OnMovieDetail(widget.id));
+      Provider.of<MovieDetailBloc>(context, listen: false)
+          .add(OnMovieRecomendation(widget.id));
+      // Provider.of<MovieDetailBloc>(context, listen: false)
+      //     .add(OnMovieWatchlistStatus(widget.id));
+          // context.read<MovieDetailBloc>().add(OnMovieDetail(widget.id)),
+          // context.read<MovieRecomendationBloc>().add(OnMovieRecomendation(widget.id)),
+          // context.read<MovieWatchlistBloc>().add(OnMovieWatchlistStatus(widget.id)),
         });
   }
 
   @override
   Widget build(BuildContext context) {
     final _isAddedToWatchlist =
-        context.select<MovieWatchlistBloc, bool>((bloc) {
+    context.select<MovieDetailBloc, bool>((bloc) {
       if (bloc.state is MovieWatchlistStatus) {
         return (bloc.state as MovieWatchlistStatus).result;
       } else {
         return false;
       }
     });
-
+   
     return Scaffold(
-      body: BlocBuilder<MovieDetailBloc, MovieDetailState>(
+      body: BlocConsumer<MovieDetailBloc, MovieDetailState>(
+        listener: (context, state) async {
+          // if (state.OnMovieWatchlistStatus ==
+          //         MovieDetailBloc.watchlistAddSuccessMessage ||
+          //     state.watchlistMessage ==
+          //         MovieDetailBloc.watchlistRemoveSuccessMessage) {
+          //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          //     content: Text(state.watchlistMessage),
+          //   ),);
+          // } else {
+          //   await showDialog(
+          //       context: context,
+          //       builder: (context) {
+          //         return AlertDialog(
+          //           content: Text(state.watchlistMessage),
+          //         );
+          //       },);
+          // }
+        },
+        // listenWhen: (previousState, currentState) =>
+        //     previousState.watchlistMessage != currentState.watchlistMessage &&
+        //     currentState.watchlistMessage != '',
         builder: (context, state) {
           if (state is MovieDetailLoading) {
             return Center(
@@ -60,7 +82,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
           } else if (state is MovieDetailError) {
             return Text(state.message);
           } else {
-            return Container();
+            return Center(child: Text("ssss"));
           }
         },
       ),
@@ -111,17 +133,17 @@ class DetailContent extends StatelessWidget {
                                 if (!isAddedToWatchlist) {
                                   Future.microtask(() => {
                                         context
-                                            .read<MovieWatchlistBloc>()
+                                            .read<MovieDetailBloc>()
                                             .add(OnMovieWatchlistSave(movie)),
-                                        context.read<MovieWatchlistBloc>().add(
+                                        context.read<MovieDetailBloc>().add(
                                             OnMovieWatchlistStatus(movie.id))
                                       });
                                 } else {
                                   Future.microtask(() => {
                                         context
-                                            .read<MovieWatchlistBloc>()
+                                            .read<MovieDetailBloc>()
                                             .add(OnMovieWatchlistRemove(movie)),
-                                        context.read<MovieWatchlistBloc>().add(
+                                        context.read<MovieDetailBloc>().add(
                                             OnMovieWatchlistStatus(movie.id))
                                       });
                                 }
@@ -187,8 +209,7 @@ class DetailContent extends StatelessWidget {
                               'Recommendations',
                               style: kHeading6,
                             ),
-                            BlocBuilder<MovieRecomendationBloc,
-                                MovieRecomendationState>(
+                            BlocBuilder<MovieDetailBloc, MovieDetailState>(
                               builder: (context, state) {
                                 if (state is MovieRecomendationLoading) {
                                   return Center(
