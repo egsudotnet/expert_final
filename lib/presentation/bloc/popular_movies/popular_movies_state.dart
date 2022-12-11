@@ -1,18 +1,15 @@
 part of 'popular_movies_bloc.dart';
  
-abstract class PopularMoviesState extends Equatable {}
+abstract class PopularMoviesState extends Equatable {
+  const PopularMoviesState();
  
-class PopularMoviesEmpty extends PopularMoviesState {
   @override
-  // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
+  List<Object> get props => [];
 }
  
-class PopularMoviesLoading extends PopularMoviesState {
-  @override
-  // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
-}
+class PopularMoviesEmpty extends PopularMoviesState {}
+ 
+class PopularMoviesLoading extends PopularMoviesState {}
  
 class PopularMoviesError extends PopularMoviesState {
   final String message;

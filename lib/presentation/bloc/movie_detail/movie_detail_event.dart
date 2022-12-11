@@ -10,39 +10,41 @@ class OnMovieDetail extends MovieDetailEvent {
   List<Object> get props => [];
 }
 
-// class OnMovieDetailStatus extends MovieDetailEvent {
-//   final int id;
+
+class OnMovieRecomendation extends MovieDetailEvent { 
+  final int id;
  
-//   OnMovieDetailStatus(this.id);
+  OnMovieRecomendation(this.id);  
+  @override
+  List<Object> get props => [];
+}
 
-//   @override
-//   List<Object> get props => [id];
-// } 
 
-
-// class Watchlist extends MovieDetailEvent {
-//   final MovieDetail movieDetail;
+class OnMovieWatchlistStatus extends MovieDetailEvent {
+  final int id;
  
-//   Watchlist(this.movieDetail);
+  OnMovieWatchlistStatus(this.id);
+
+  @override
+  List<Object> get props => [id];
+} 
+
+
+class OnMovieWatchlistRemove extends MovieDetailEvent {
+  final MovieDetail movieDetail;
+ 
+  OnMovieWatchlistRemove(this.movieDetail);
   
-//   @override
-//   List<Object> get props => [movieDetail];
-// } 
+  @override
+  List<Object> get props => [movieDetail];
+} 
 
 
-// class OnMovieDetailSaveWatchlist extends MovieDetailEvent {
-//   final MovieDetail movieDetail;
+class OnMovieWatchlistSave extends MovieDetailEvent {
+  final MovieDetail movieDetail;
  
-//   OnMovieDetailSaveWatchlist(this.movieDetail);
+  OnMovieWatchlistSave(this.movieDetail);
   
-//   @override
-//   List<Object> get props => [movieDetail];
-// } 
- 
-// class OnMovieDetailRemoveWatchlist extends MovieDetailEvent {
-//   final MovieDetail movieDetail;
-
-//   OnMovieDetailRemoveWatchlist(this.movieDetail);
-//   @override
-//   List<Object> get props => [movieDetail];
-// }
+  @override
+  List<Object> get props => [movieDetail];
+}

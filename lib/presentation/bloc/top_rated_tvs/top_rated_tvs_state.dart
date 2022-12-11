@@ -1,18 +1,15 @@
 part of 'top_rated_tvs_bloc.dart';
  
-abstract class TopRatedTvState extends Equatable {}
+abstract class TopRatedTvState extends Equatable {
+  const TopRatedTvState();
  
-class TopRatedTvEmpty extends TopRatedTvState {
   @override
-  // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
+  List<Object> get props => [];
 }
  
-class TopRatedTvLoading extends TopRatedTvState {
-  @override
-  // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
-}
+class TopRatedTvEmpty extends TopRatedTvState {}
+ 
+class TopRatedTvLoading extends TopRatedTvState {}
  
 class TopRatedTvError extends TopRatedTvState {
   final String message;

@@ -19,17 +19,17 @@ import 'package:ditonton/domain/usecases/get_top_rated_tvs.dart';
 import 'package:ditonton/domain/usecases/get_tv_detail.dart';
 import 'package:ditonton/domain/usecases/get_tv_recommendations.dart';
 import 'package:ditonton/domain/usecases/get_watchlist_movies.dart';
-import 'package:ditonton/domain/usecases/get_watchlist_status.dart';
+import 'package:ditonton/domain/usecases/get_watchlist_movie_status.dart';
 import 'package:ditonton/domain/usecases/get_watchlist_status_tv.dart';
 import 'package:ditonton/domain/usecases/remove_watchlist.dart';
 import 'package:ditonton/domain/usecases/remove_watchlist_tv.dart';
-import 'package:ditonton/domain/usecases/save_watchlist.dart';
+import 'package:ditonton/domain/usecases/save_watchlist_movie.dart';
 import 'package:ditonton/domain/usecases/save_watchlist_tv.dart';
 import 'package:ditonton/domain/usecases/search_movies.dart';
 import 'package:ditonton/domain/usecases/search_tvs.dart';
 import 'package:ditonton/presentation/bloc/movie_detail/movie_detail_bloc.dart';
 import 'package:ditonton/presentation/bloc/movie_now_playing/movie_now_playing_bloc.dart';
-import 'package:ditonton/presentation/bloc/movie_recomndation/movie_recomendation_bloc.dart';
+import 'package:ditonton/presentation/bloc/movie_recomendation/movie_recomendation_bloc.dart';
 import 'package:ditonton/presentation/bloc/movie_search/movie_search_bloc.dart';
 import 'package:ditonton/presentation/bloc/popular_movies/popular_movies_bloc.dart';
 import 'package:ditonton/presentation/bloc/popular_tvs/popular_tvs_bloc.dart';
@@ -37,6 +37,7 @@ import 'package:ditonton/presentation/bloc/top_rated_movies/top_rated_movies_blo
 import 'package:ditonton/presentation/bloc/top_rated_tvs/top_rated_tvs_bloc.dart';
 import 'package:ditonton/presentation/bloc/tv_detail/tv_detail_bloc.dart';
 import 'package:ditonton/presentation/bloc/tv_now_playing/tv_now_playing_bloc.dart';
+import 'package:ditonton/presentation/bloc/tv_recomendation/tv_recomendation_bloc.dart';
 import 'package:ditonton/presentation/bloc/tv_search/tv_search_bloc.dart';
 import 'package:ditonton/presentation/bloc/watchlist_movie/watchlist_movie_bloc.dart';
 import 'package:ditonton/presentation/bloc/watchlist_tv/watchlist_tv_bloc.dart';
@@ -50,9 +51,10 @@ void init() {
   locator.registerFactory(
     () => MovieDetailBloc(
       locator(),
-      // locator(),
-      // locator(),
-      // locator(),
+      locator(),
+      locator(),
+      locator(),
+      locator(),
     ),
   ); 
   
@@ -92,6 +94,7 @@ void init() {
     ),
   );
   
+  //TV-BLoC
   locator.registerFactory(
     () => TvDetailBloc(
       locator()
@@ -127,6 +130,11 @@ void init() {
     ),
   );
  
+  locator.registerFactory(
+    () => TvRecomendationBloc(
+      locator(),
+    ),
+  );
 
 
   // use case - movies
@@ -136,9 +144,9 @@ void init() {
   locator.registerLazySingleton(() => GetMovieDetail(locator()));
   locator.registerLazySingleton(() => GetMovieRecommendations(locator()));
   locator.registerLazySingleton(() => SearchMovies(locator()));
-  locator.registerLazySingleton(() => GetWatchListStatus(locator()));
-  locator.registerLazySingleton(() => SaveWatchlist(locator()));
-  locator.registerLazySingleton(() => RemoveWatchlist(locator()));
+  locator.registerLazySingleton(() => GetWatchListMovieStatus(locator()));
+  locator.registerLazySingleton(() => SaveWatchlistMovie(locator()));
+  locator.registerLazySingleton(() => RemoveWatchlistMovie(locator()));
   locator.registerLazySingleton(() => GetWatchlistMovies(locator()));
  
   // use case - tv
@@ -148,7 +156,7 @@ void init() {
   locator.registerLazySingleton(() => GetTvDetail(locator()));
   locator.registerLazySingleton(() => GetTvRecommendations(locator()));
   locator.registerLazySingleton(() => SearchTvs(locator()));
-  locator.registerLazySingleton(() => GetWatchListStatusTv(locator()));
+  locator.registerLazySingleton(() => GetWatchListTvStatus(locator()));
   locator.registerLazySingleton(() => SaveWatchlistTv(locator()));
   locator.registerLazySingleton(() => RemoveWatchlistTv(locator()));
   locator.registerLazySingleton(() => GetWatchlistTvs(locator()));

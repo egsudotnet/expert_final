@@ -3,7 +3,7 @@ import 'package:ditonton/common/ssl_pinning.dart';
 import 'package:ditonton/common/utils.dart';
 import 'package:ditonton/firebase_options.dart';
 import 'package:ditonton/presentation/bloc/movie_detail/movie_detail_bloc.dart';
-import 'package:ditonton/presentation/bloc/movie_recomndation/movie_recomendation_bloc.dart';
+import 'package:ditonton/presentation/bloc/movie_recomendation/movie_recomendation_bloc.dart';
 import 'package:ditonton/presentation/bloc/movie_search/movie_search_bloc.dart';
 import 'package:ditonton/presentation/bloc/popular_movies/popular_movies_bloc.dart';
 import 'package:ditonton/presentation/bloc/popular_tvs/popular_tvs_bloc.dart';
@@ -11,6 +11,7 @@ import 'package:ditonton/presentation/bloc/top_rated_movies/top_rated_movies_blo
 import 'package:ditonton/presentation/bloc/top_rated_tvs/top_rated_tvs_bloc.dart';
 import 'package:ditonton/presentation/bloc/tv_detail/tv_detail_bloc.dart';
 import 'package:ditonton/presentation/bloc/tv_now_playing/tv_now_playing_bloc.dart';
+import 'package:ditonton/presentation/bloc/tv_recomendation/tv_recomendation_bloc.dart';
 import 'package:ditonton/presentation/bloc/tv_search/tv_search_bloc.dart';
 import 'package:ditonton/presentation/bloc/watchlist_movie/watchlist_movie_bloc.dart';
 import 'package:ditonton/presentation/bloc/watchlist_tv/watchlist_tv_bloc.dart';
@@ -93,6 +94,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (_) => di.locator<TvWatchlistBloc>(),
         ),
+        BlocProvider(
+          create: (_) => di.locator<TvRecomendationBloc>(),
+        ),
          
       ],
       child: MaterialApp(
@@ -136,8 +140,7 @@ class MyApp extends StatelessWidget {
                 builder: (_) => TvDetailPage(id: id),
                 settings: settings,
               );
-            // case SearchPage.ROUTE_NAME:
-            //   return CupertinoPageRoute(builder: (_) => SearchPage());
+              
             case WatchlistTvsPage.ROUTE_NAME:
               return MaterialPageRoute(builder: (_) => WatchlistTvsPage());
 

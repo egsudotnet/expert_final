@@ -17,14 +17,4 @@ class OnTvRecomendationStatus extends TvRecomendationEvent {
 
   @override
   List<Object> get props => [id];
-} 
-
- 
-  
-class OnTvRecomendationGetRecomendation extends TvRecomendationEvent {
-  final int id;
-
-  OnTvRecomendationGetRecomendation(this.id);
-  @override
-  List<Object> get props => [id];
-} 
+}

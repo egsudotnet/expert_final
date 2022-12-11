@@ -1,18 +1,15 @@
 part of 'tv_recomendation_bloc.dart';
  
-abstract class TvRecomendationState extends Equatable {}
+abstract class TvRecomendationState extends Equatable {
+  const TvRecomendationState();
  
-class TvRecomendationEmpty extends TvRecomendationState {
   @override
-  // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
+  List<Object> get props => [];
 }
  
-class TvRecomendationLoading extends TvRecomendationState {
-  @override
-  // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
-} 
+class TvRecomendationEmpty extends TvRecomendationState {}
+ 
+class TvRecomendationLoading extends TvRecomendationState {} 
  
 class TvRecomendationError extends TvRecomendationState {
   final String message;

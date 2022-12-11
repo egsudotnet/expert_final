@@ -2,7 +2,7 @@ import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/domain/entities/genre.dart';
 import 'package:ditonton/domain/entities/tv_detail.dart';
 import 'package:ditonton/presentation/bloc/tv_detail/tv_detail_bloc.dart';
-import 'package:ditonton/presentation/bloc/tv_recomndation/tv_recomendation_bloc.dart';
+import 'package:ditonton/presentation/bloc/tv_recomendation/tv_recomendation_bloc.dart';
 import 'package:ditonton/presentation/bloc/watchlist_tv/watchlist_tv_bloc.dart';
 import 'package:ditonton/presentation/widgets/image_card.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class TvDetailPage extends StatefulWidget {
-  static const ROUTE_NAME = '/detail';
+  static const ROUTE_NAME = '/detail-tv';
 
   final int id;
   TvDetailPage({required this.id});
@@ -25,19 +25,14 @@ class _TvDetailPageState extends State<TvDetailPage> {
     super.initState();
     Future.microtask(() => {
           context.read<TvDetailBloc>().add(OnTvDetail(widget.id)),
-          context
-              .read<TvRecomendationBloc>()
-              .add(OnTvRecomendation(widget.id)),
-          context
-              .read<TvWatchlistBloc>()
-              .add(OnTvWatchlistStatus(widget.id))
+          context.read<TvRecomendationBloc>().add(OnTvRecomendation(widget.id)),
+          context.read<TvWatchlistBloc>().add(OnTvWatchlistStatus(widget.id))
         });
   }
 
   @override
   Widget build(BuildContext context) {
-    final _isAddedToWatchlist =
-        context.select<TvWatchlistBloc, bool>((bloc) {
+    final _isAddedToWatchlist = context.select<TvWatchlistBloc, bool>((bloc) {
       if (bloc.state is TvWatchlistStatus) {
         return (bloc.state as TvWatchlistStatus).result;
       } else {
@@ -113,16 +108,18 @@ class DetailContent extends StatelessWidget {
                                         context
                                             .read<TvWatchlistBloc>()
                                             .add(OnTvWatchlistSave(tv)),
-                                        context.read<TvWatchlistBloc>().add(
-                                            OnTvWatchlistStatus(tv.id))
+                                        context
+                                            .read<TvWatchlistBloc>()
+                                            .add(OnTvWatchlistStatus(tv.id))
                                       });
                                 } else {
                                   Future.microtask(() => {
                                         context
                                             .read<TvWatchlistBloc>()
                                             .add(OnTvWatchlistRemove(tv)),
-                                        context.read<TvWatchlistBloc>().add(
-                                            OnTvWatchlistStatus(tv.id))
+                                        context
+                                            .read<TvWatchlistBloc>()
+                                            .add(OnTvWatchlistStatus(tv.id))
                                       });
                                 }
 
@@ -278,16 +275,5 @@ class DetailContent extends StatelessWidget {
     }
 
     return result.substring(0, result.length - 2);
-  }
-
-  String _showDuration(int runtime) {
-    final int hours = runtime ~/ 60;
-    final int minutes = runtime % 60;
-
-    if (hours > 0) {
-      return '${hours}h ${minutes}m';
-    } else {
-      return '${minutes}m';
-    }
   }
 }

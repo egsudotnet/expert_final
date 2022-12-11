@@ -1,18 +1,15 @@
 part of 'watchlist_tv_bloc.dart';
  
-abstract class TvWatchlistState extends Equatable {}
+abstract class TvWatchlistState extends Equatable {
+  const TvWatchlistState();
  
-class TvWatchlistEmpty extends TvWatchlistState {
   @override
-  // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
+  List<Object> get props => [];
 }
  
-class TvWatchlistLoading extends TvWatchlistState {
-  @override
-  // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
-}
+class TvWatchlistEmpty extends TvWatchlistState {}
+ 
+class TvWatchlistLoading extends TvWatchlistState {}
  
 class TvWatchlistError extends TvWatchlistState {
   final String message;

@@ -1,13 +1,8 @@
- 
-import 'dart:async';
-
 import 'package:ditonton/domain/entities/tv.dart';
 import 'package:ditonton/domain/entities/tv_detail.dart';
+import 'package:ditonton/domain/usecases/get_watchlist_status_tv.dart';
 import 'package:ditonton/domain/usecases/get_watchlist_tvs.dart';
-import 'package:ditonton/domain/usecases/get_watchlist_status.dart';
-import 'package:ditonton/domain/usecases/remove_watchlist.dart';
 import 'package:ditonton/domain/usecases/remove_watchlist_tv.dart';
-import 'package:ditonton/domain/usecases/save_watchlist.dart';
 import 'package:ditonton/domain/usecases/save_watchlist_tv.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,15 +12,15 @@ part 'watchlist_tv_event.dart';
 
 class TvWatchlistBloc extends Bloc<TvWatchlistEvent, TvWatchlistState> {
   final GetWatchlistTvs _getWatchlistTv;
-  final GetWatchListStatus _getWatchlistStatus;
-  final RemoveWatchlistTv _removeWatchlist;
-  final SaveWatchlistTv _saveWatchlist;
+  final GetWatchListTvStatus _getWatchlistTvStatus;
+  final RemoveWatchlistTv _removeWatchlistTv;
+  final SaveWatchlistTv _saveWatchlistTv;
 
   TvWatchlistBloc(
     this._getWatchlistTv,
-    this._getWatchlistStatus,
-    this._removeWatchlist,
-    this._saveWatchlist
+    this._getWatchlistTvStatus,
+    this._removeWatchlistTv,
+    this._saveWatchlistTv
     ) : super(TvWatchlistEmpty()) {
 
     on<OnTvWatchlist>((event, emit) async { 
@@ -39,12 +34,12 @@ class TvWatchlistBloc extends Bloc<TvWatchlistEvent, TvWatchlistState> {
     });
  
     on<OnTvWatchlistStatus>((event, emit) async { 
-      final result = await _getWatchlistStatus.execute(event.id);
+      final result = await _getWatchlistTvStatus.execute(event.id);
       emit(TvWatchlistStatus(result));
     });
 
     on<OnTvWatchlistRemove>((event, emit) async { 
-      final result = await _removeWatchlist.execute(event.tvDetail);
+      final result = await _removeWatchlistTv.execute(event.tvDetail);
       result.fold((failure) {
         emit(TvWatchlistError(failure.message));
       }, (success) {
@@ -53,7 +48,7 @@ class TvWatchlistBloc extends Bloc<TvWatchlistEvent, TvWatchlistState> {
     });
  
     on<OnTvWatchlistSave>((event, emit) async { 
-      final result = await _saveWatchlist.execute(event.tvDetail);
+      final result = await _saveWatchlistTv.execute(event.tvDetail);
       result.fold((failure) {
         emit(TvWatchlistError(failure.message));
       }, (success) {

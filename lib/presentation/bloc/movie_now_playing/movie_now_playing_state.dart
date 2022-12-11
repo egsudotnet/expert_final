@@ -1,18 +1,15 @@
 part of 'movie_now_playing_bloc.dart';
  
-abstract class MovieNowPlayingState extends Equatable {}
+abstract class MovieNowPlayingState extends Equatable {
+  const MovieNowPlayingState();
  
-class MovieNowPlayingEmpty extends MovieNowPlayingState {
   @override
-  // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
+  List<Object> get props => [];
 }
  
-class MovieNowPlayingLoading extends MovieNowPlayingState {
-  @override
-  // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
-}
+class MovieNowPlayingEmpty extends MovieNowPlayingState {}
+ 
+class MovieNowPlayingLoading extends MovieNowPlayingState {}
  
 class MovieNowPlayingError extends MovieNowPlayingState {
   final String message;

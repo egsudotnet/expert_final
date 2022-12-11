@@ -1,18 +1,15 @@
 part of 'popular_tvs_bloc.dart';
  
-abstract class PopularTvsState extends Equatable {}
+abstract class PopularTvsState extends Equatable {
+  const PopularTvsState();
  
-class PopularTvsEmpty extends PopularTvsState {
   @override
-  // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
+  List<Object> get props => [];
 }
  
-class PopularTvsLoading extends PopularTvsState {
-  @override
-  // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
-}
+class PopularTvsEmpty extends PopularTvsState {}
+ 
+class PopularTvsLoading extends PopularTvsState {}
  
 class PopularTvsError extends PopularTvsState {
   final String message;

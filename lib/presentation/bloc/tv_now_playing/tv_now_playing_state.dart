@@ -1,18 +1,15 @@
 part of 'tv_now_playing_bloc.dart';
  
-abstract class TvNowPlayingState extends Equatable {}
+abstract class TvNowPlayingState extends Equatable {
+  const TvNowPlayingState();
  
-class TvNowPlayingEmpty extends TvNowPlayingState {
   @override
-  // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
+  List<Object> get props => [];
 }
  
-class TvNowPlayingLoading extends TvNowPlayingState {
-  @override
-  // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
-}
+class TvNowPlayingEmpty extends TvNowPlayingState {}
+ 
+class TvNowPlayingLoading extends TvNowPlayingState {}
  
 class TvNowPlayingError extends TvNowPlayingState {
   final String message;

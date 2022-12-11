@@ -9,7 +9,7 @@ import 'package:dartz/dartz.dart' as _i3;
 import 'package:ditonton/common/failure.dart' as _i6;
 import 'package:ditonton/domain/entities/tv.dart' as _i7;
 import 'package:ditonton/domain/repositories/tv_repository.dart' as _i2;
-import 'package:ditonton/domain/usecases/get_top_rated_tvs.dart' as _i4;
+import 'package:ditonton/domain/usecases/get_popular_tvs.dart' as _i4;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -43,11 +43,11 @@ class _FakeEither_1<L, R> extends _i1.SmartFake implements _i3.Either<L, R> {
         );
 }
 
-/// A class which mocks [GetTopRatedTvs].
+/// A class which mocks [GetPopularTvs].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockGetTopRatedTvs extends _i1.Mock implements _i4.GetTopRatedTvs {
-  MockGetTopRatedTvs() {
+class MockGetPopularTvs extends _i1.Mock implements _i4.GetPopularTvs {
+  MockGetPopularTvs() {
     _i1.throwOnMissingStub(this);
   }
 
