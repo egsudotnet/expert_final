@@ -5,7 +5,7 @@ class MovieDetailState extends Equatable {
   final bool movieIsAdded;
   final List<Movie> movieRecomendation;
   final String movieMessage;
-  final String movieDetailState;
+  final RequestState movieDetailState;
   final String movieMessageWatchlist;
 
   const MovieDetailState(
@@ -22,7 +22,7 @@ class MovieDetailState extends Equatable {
     return const MovieDetailState(
       movieDetail: null,
       movieMessage: '',
-      movieDetailState: '',
+      movieDetailState: RequestState.Empty,
       movieIsAdded: false,
       movieRecomendation: [],
       movieMessageWatchlist:""
@@ -34,7 +34,7 @@ class MovieDetailState extends Equatable {
     bool? movieIsAdded,
     List<Movie>? movieRecomendation,
     String? movieMessage,
-    String? movieDetailState,
+    RequestState? movieDetailState,
     String? movieMessageWatchlist  }) {
     return MovieDetailState(
       movieDetail: movieDetail ?? this.movieDetail,
@@ -47,7 +47,14 @@ class MovieDetailState extends Equatable {
   }
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [
+      movieDetail,
+      movieMessage,
+      movieDetailState,
+      movieIsAdded,
+      movieRecomendation,
+      movieMessageWatchlist
+  ];
 }
  
 // class MovieDetailEmpty extends MovieDetailState {}

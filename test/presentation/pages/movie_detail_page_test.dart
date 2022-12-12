@@ -118,6 +118,8 @@ void main() {
   //   );
   // } 
 
+  final movieState = MovieDetailState.loadFirst();
+
   testWidgets('Page should display center progress bar when loading',
       (WidgetTester tester) async {
     when(() => mockMovieDetailBloc.state).thenReturn(MovieDetailLoading());
