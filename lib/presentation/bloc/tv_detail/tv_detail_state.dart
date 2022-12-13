@@ -1,48 +1,58 @@
 part of 'tv_detail_bloc.dart';
- 
-abstract class TvDetailState extends Equatable {
-  const TvDetailState();
- 
-  @override
-  List<Object> get props => [];}
- 
-class TvDetailEmpty extends TvDetailState {}
- 
-class TvDetailLoading extends TvDetailState {}
- 
-class TvDetailError extends TvDetailState {
-  final String message;
- 
-  TvDetailError(this.message);
- 
-  @override
-  List<Object> get props => [message];
-}
 
-class TvDetailMessage extends TvDetailState {
-  final String message;
- 
-  TvDetailMessage(this.message);
- 
-  @override
-  List<Object> get props => [message];
-}
- 
-class TvDetailHasData extends TvDetailState {
-  final TvDetail result;
- 
-  TvDetailHasData(this.result);
- 
-  @override
-  List<Object> get props => [result];
-}
+class TvDetailState extends Equatable {
+  final TvDetail? tvDetail;
+  final bool tvIsAdded;
+  final List<Tv> tvRecomendation;
+  final String tvMessage;
+  final RequestState tvDetailState;
+  final String tvMessageWatchlist;
 
+  const TvDetailState(
+      {
+      required this.tvDetail,
+      required this.tvIsAdded,
+      required this.tvRecomendation,
+      required this.tvMessage,
+      required this.tvDetailState,
+      required this.tvMessageWatchlist
+      });
 
-// class TvDetailStatus extends TvDetailState {
-//   final bool result;
- 
-//   TvDetailStatus(this.result);
- 
-//   @override
-//   List<Object> get props => [result];
-// }
+  factory TvDetailState.loadFirst() {
+    return const TvDetailState(
+      tvDetail: null,
+      tvMessage: '',
+      tvDetailState: RequestState.Empty,
+      tvIsAdded: false,
+      tvRecomendation: [],
+      tvMessageWatchlist:""
+    );
+  }
+
+  TvDetailState copyWith({
+    TvDetail? tvDetail,
+    bool? tvIsAdded,
+    List<Tv>? tvRecomendation,
+    String? tvMessage,
+    RequestState? tvDetailState,
+    String? tvMessageWatchlist  }) {
+    return TvDetailState(
+      tvDetail: tvDetail ?? this.tvDetail,
+      tvIsAdded: tvIsAdded ?? this.tvIsAdded,
+      tvRecomendation: tvRecomendation ?? this.tvRecomendation,
+      tvMessage: tvMessage ?? this.tvMessage,
+      tvDetailState: tvDetailState ?? this.tvDetailState,
+      tvMessageWatchlist: tvMessageWatchlist ?? this.tvMessageWatchlist,
+    );
+  }
+
+  @override
+  List<Object?> get props => [
+      tvDetail,
+      tvMessage,
+      tvDetailState,
+      tvIsAdded,
+      tvRecomendation,
+      tvMessageWatchlist
+  ];
+}

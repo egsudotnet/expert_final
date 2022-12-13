@@ -1,16 +1,17 @@
 import 'package:ditonton/common/constants.dart';
+import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/domain/entities/genre.dart';
+import 'package:ditonton/domain/entities/tv.dart';
 import 'package:ditonton/domain/entities/tv_detail.dart';
 import 'package:ditonton/presentation/bloc/tv_detail/tv_detail_bloc.dart';
-import 'package:ditonton/presentation/bloc/tv_recomendation/tv_recomendation_bloc.dart';
-import 'package:ditonton/presentation/bloc/watchlist_tv/watchlist_tv_bloc.dart';
 import 'package:ditonton/presentation/widgets/image_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:provider/provider.dart';
 
 class TvDetailPage extends StatefulWidget {
-  static const ROUTE_NAME = '/detail-tv';
+  static const ROUTE_NAME = '/detail';
 
   final int id;
   TvDetailPage({required this.id});
@@ -23,37 +24,28 @@ class _TvDetailPageState extends State<TvDetailPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() => {
-          context.read<TvDetailBloc>().add(OnTvDetail(widget.id)),
-          context.read<TvRecomendationBloc>().add(OnTvRecomendation(widget.id)),
-          context.read<TvWatchlistBloc>().add(OnTvWatchlistStatus(widget.id))
+    Future.microtask(() {
+      Provider.of<TvDetailBloc>(context, listen: false)
+          .add(OnTvDetail(widget.id));
         });
   }
 
   @override
   Widget build(BuildContext context) {
-    final _isAddedToWatchlist = context.select<TvWatchlistBloc, bool>((bloc) {
-      if (bloc.state is TvWatchlistStatus) {
-        return (bloc.state as TvWatchlistStatus).result;
-      } else {
-        return false;
-      }
-    });
-
     return Scaffold(
       body: BlocBuilder<TvDetailBloc, TvDetailState>(
         builder: (context, state) {
-          if (state is TvDetailLoading) {
+          if (state.tvDetailState == RequestState.Loading) {
             return Center(
               child: CircularProgressIndicator(),
             );
-          } else if (state is TvDetailHasData) {
-            final tv = state.result;
+          } else if (state.tvDetailState == RequestState.Loaded) {
+            //  final tv = state.tvDetail!;
             return SafeArea(
-              child: DetailContent(tv, _isAddedToWatchlist),
+              child: DetailContent(state.tvDetail!, state.tvIsAdded, state.tvRecomendation, state.tvMessageWatchlist),
             );
-          } else if (state is TvDetailError) {
-            return Text(state.message);
+          } else if (state.tvDetailState == RequestState.Error) {
+            return Text(state.tvMessage);
           } else {
             return Container();
           }
@@ -66,7 +58,9 @@ class _TvDetailPageState extends State<TvDetailPage> {
 class DetailContent extends StatelessWidget {
   final TvDetail tv;
   final bool isAddedToWatchlist;
-  DetailContent(this.tv, this.isAddedToWatchlist);
+  final List<Tv> recomendations; 
+  final String tvMessageWatchlist;
+  DetailContent(this.tv, this.isAddedToWatchlist, this.recomendations, this.tvMessageWatchlist);
 
   @override
   Widget build(BuildContext context) {
@@ -106,26 +100,22 @@ class DetailContent extends StatelessWidget {
                                 if (!isAddedToWatchlist) {
                                   Future.microtask(() => {
                                         context
-                                            .read<TvWatchlistBloc>()
+                                            .read<TvDetailBloc>()
                                             .add(OnTvWatchlistSave(tv)),
-                                        context
-                                            .read<TvWatchlistBloc>()
-                                            .add(OnTvWatchlistStatus(tv.id))
+                                        context.read<TvDetailBloc>().add(
+                                            OnTvWatchlistStatus(tv.id))
                                       });
                                 } else {
                                   Future.microtask(() => {
                                         context
-                                            .read<TvWatchlistBloc>()
+                                            .read<TvDetailBloc>()
                                             .add(OnTvWatchlistRemove(tv)),
-                                        context
-                                            .read<TvWatchlistBloc>()
-                                            .add(OnTvWatchlistStatus(tv.id))
+                                        context.read<TvDetailBloc>().add(
+                                            OnTvWatchlistStatus(tv.id))
                                       });
                                 }
 
-                                String message = !isAddedToWatchlist
-                                    ? watchlistAddSuccessMessage
-                                    : watchlistRemoveSuccessMessage;
+                                String message = tvMessageWatchlist;
 
                                 if (message == watchlistAddSuccessMessage ||
                                     message == watchlistRemoveSuccessMessage) {
@@ -181,22 +171,12 @@ class DetailContent extends StatelessWidget {
                               'Recommendations',
                               style: kHeading6,
                             ),
-                            BlocBuilder<TvRecomendationBloc,
-                                TvRecomendationState>(
-                              builder: (context, state) {
-                                if (state is TvRecomendationLoading) {
-                                  return Center(
-                                    child: CircularProgressIndicator(),
-                                  );
-                                } else if (state is TvRecomendationError) {
-                                  return Text(state.message);
-                                } else if (state is TvRecomendationHasData) {
-                                  return Container(
+                            Container(
                                     height: 150,
                                     child: ListView.builder(
                                       scrollDirection: Axis.horizontal,
                                       itemBuilder: (context, index) {
-                                        final tv = state.result[index];
+                                        final tv = recomendations[index];
                                         return Padding(
                                           padding: const EdgeInsets.all(4.0),
                                           child: InkWell(
@@ -218,14 +198,9 @@ class DetailContent extends StatelessWidget {
                                           ),
                                         );
                                       },
-                                      itemCount: state.result.length,
+                                      itemCount: recomendations.length,
                                     ),
-                                  );
-                                } else {
-                                  return Container();
-                                }
-                              },
-                            ),
+                                  )
                           ],
                         ),
                       ),
