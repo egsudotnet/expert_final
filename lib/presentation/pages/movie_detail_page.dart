@@ -11,7 +11,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
 
 class MovieDetailPage extends StatefulWidget {
-  static const ROUTE_NAME = '/detail';
+  static const ROUTE_NAME = '/detail-movie';
 
   final int id;
   MovieDetailPage({required this.id});
@@ -24,16 +24,39 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
   @override
   void initState() {
     super.initState();
+
     Future.microtask(() {
       Provider.of<MovieDetailBloc>(context, listen: false)
           .add(OnMovieDetail(widget.id));
-        });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<MovieDetailBloc, MovieDetailState>(
+      body: BlocConsumer<MovieDetailBloc, MovieDetailState>(
+        listener: (context, state) {
+          String message = state.movieMessageWatchlist;
+
+          if (message == watchlistAddSuccessMessage ||
+              message == watchlistRemoveSuccessMessage) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(message),
+                duration: Duration(seconds: 2, milliseconds: 0)));
+          } else {
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    content: Text(message),
+                  );
+                });
+          }
+        },
+        listenWhen: (previousState, currentState) =>
+            previousState.movieMessageWatchlist !=
+                currentState.movieMessageWatchlist &&
+            currentState.movieMessageWatchlist != '',
         builder: (context, state) {
           if (state.movieDetailState == RequestState.Loading) {
             return Center(
@@ -41,8 +64,10 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
             );
           } else if (state.movieDetailState == RequestState.Loaded) {
             //  final movie = state.movieDetail!;
+
             return SafeArea(
-              child: DetailContent(state.movieDetail!, state.movieIsAdded, state.movieRecomendation, state.movieMessageWatchlist),
+              child: DetailContent(state.movieDetail!, state.movieIsAdded,
+                  state.movieRecomendation),
             );
           } else if (state.movieDetailState == RequestState.Error) {
             return Text(state.movieMessage);
@@ -58,9 +83,8 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
 class DetailContent extends StatelessWidget {
   final MovieDetail movie;
   final bool isAddedToWatchlist;
-  final List<Movie> recomendations; 
-  final String movieMessageWatchlist;
-  DetailContent(this.movie, this.isAddedToWatchlist, this.recomendations, this.movieMessageWatchlist);
+  final List<Movie> recomendations;
+  DetailContent(this.movie, this.isAddedToWatchlist, this.recomendations);
 
   @override
   Widget build(BuildContext context) {
@@ -101,33 +125,13 @@ class DetailContent extends StatelessWidget {
                                   Future.microtask(() => {
                                         context
                                             .read<MovieDetailBloc>()
-                                            .add(OnMovieWatchlistSave(movie)),
-                                        context.read<MovieDetailBloc>().add(
-                                            OnMovieWatchlistStatus(movie.id))
+                                            .add(OnMovieWatchlistSave(movie))
                                       });
                                 } else {
                                   Future.microtask(() => {
                                         context
                                             .read<MovieDetailBloc>()
-                                            .add(OnMovieWatchlistRemove(movie)),
-                                        context.read<MovieDetailBloc>().add(
-                                            OnMovieWatchlistStatus(movie.id))
-                                      });
-                                }
-
-                                String message = movieMessageWatchlist;
-
-                                if (message == watchlistAddSuccessMessage ||
-                                    message == watchlistRemoveSuccessMessage) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(content: Text(message)));
-                                } else {
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return AlertDialog(
-                                          content: Text(message),
-                                        );
+                                            .add(OnMovieWatchlistRemove(movie))
                                       });
                                 }
                               },
@@ -175,35 +179,34 @@ class DetailContent extends StatelessWidget {
                               style: kHeading6,
                             ),
                             Container(
-                                    height: 150,
-                                    child: ListView.builder(
-                                      scrollDirection: Axis.horizontal,
-                                      itemBuilder: (context, index) {
-                                        final movie = recomendations[index];
-                                        return Padding(
-                                          padding: const EdgeInsets.all(4.0),
-                                          child: InkWell(
-                                            onTap: () {
-                                              Navigator.pushReplacementNamed(
-                                                context,
-                                                MovieDetailPage.ROUTE_NAME,
-                                                arguments: movie.id,
-                                              );
-                                            },
-                                            child: ClipRRect(
-                                              borderRadius: BorderRadius.all(
-                                                Radius.circular(8),
-                                              ),
-                                              child: ImageCard(
-                                                  pathImage:
-                                                      movie.posterPath ?? ""),
-                                            ),
-                                          ),
+                              height: 150,
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index) {
+                                  final movie = recomendations[index];
+                                  return Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: InkWell(
+                                      onTap: () {
+                                        Navigator.pushReplacementNamed(
+                                          context,
+                                          MovieDetailPage.ROUTE_NAME,
+                                          arguments: movie.id,
                                         );
                                       },
-                                      itemCount: recomendations.length,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(8),
+                                        ),
+                                        child: ImageCard(
+                                            pathImage: movie.posterPath ?? ""),
+                                      ),
                                     ),
-                                  )
+                                  );
+                                },
+                                itemCount: recomendations.length,
+                              ),
+                            )
                           ],
                         ),
                       ),

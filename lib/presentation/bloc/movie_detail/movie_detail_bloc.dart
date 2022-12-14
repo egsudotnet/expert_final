@@ -26,9 +26,10 @@ class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
       this._saveWatchlistMovie,
       this._removeWatchlistMovie)
       : super(MovieDetailState.loadFirst()) {
-
     on<OnMovieDetail>((event, emit) async {
-      emit(state.copyWith(movieDetailState: RequestState.Loading));
+      MovieDetailState.loadFirst();
+      emit(state.copyWith(
+          movieDetailState: RequestState.Loading, movieMessageWatchlist: ""));
       final resultMovieDetail = await _getMovieDetail.execute(event.id);
       final resultMovieRecommendation =
           await _getMovieRecommendations.execute(event.id);
@@ -39,7 +40,7 @@ class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
         emit(state.copyWith(movieDetailState: RequestState.Error));
       }, (success) {
         emit(state.copyWith(
-            movieDetail: success, 
+            movieDetail: success,
             movieDetailState: RequestState.Loading,
             movieIsAdded: resultWatchlistMovieStatus,
             movieMessage: ""));
@@ -52,11 +53,10 @@ class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
           emit(state.copyWith(
               movieRecomendation: success,
               movieDetailState: RequestState.Loaded,
-              movieMessage:""));
+              movieMessage: ""));
         });
       });
     });
-
 
     on<OnMovieWatchlistStatus>((event, emit) async {
       final result = await _getWatchlistMovieStatus.execute(event.id);
@@ -68,7 +68,8 @@ class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
       result.fold((failure) {
         emit(state.copyWith(movieMessageWatchlist: failure.message));
       }, (success) {
-        emit(state.copyWith(movieMessageWatchlist: success));
+        emit(state.copyWith(
+            movieMessageWatchlist: success, movieIsAdded: false));
       });
     });
 
@@ -77,7 +78,8 @@ class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
       result.fold((failure) {
         emit(state.copyWith(movieMessageWatchlist: failure.message));
       }, (success) {
-        emit(state.copyWith(movieMessageWatchlist: success));
+        emit(
+            state.copyWith(movieMessageWatchlist: success, movieIsAdded: true));
       });
     });
   }

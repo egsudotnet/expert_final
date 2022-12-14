@@ -26,9 +26,10 @@ class TvDetailBloc extends Bloc<TvDetailEvent, TvDetailState> {
       this._saveWatchlistTv,
       this._removeWatchlistTv)
       : super(TvDetailState.loadFirst()) {
-
     on<OnTvDetail>((event, emit) async {
-      emit(state.copyWith(tvDetailState: RequestState.Loading));
+      TvDetailState.loadFirst();
+      emit(state.copyWith(
+          tvDetailState: RequestState.Loading, tvMessageWatchlist: ""));
       final resultTvDetail = await _getTvDetail.execute(event.id);
       final resultTvRecommendation =
           await _getTvRecommendations.execute(event.id);
@@ -39,24 +40,22 @@ class TvDetailBloc extends Bloc<TvDetailEvent, TvDetailState> {
         emit(state.copyWith(tvDetailState: RequestState.Error));
       }, (success) {
         emit(state.copyWith(
-            tvDetail: success, 
+            tvDetail: success,
             tvDetailState: RequestState.Loading,
             tvIsAdded: resultWatchlistTvStatus,
             tvMessage: ""));
 
         resultTvRecommendation.fold((failure) {
           emit(state.copyWith(
-              tvDetailState: RequestState.Error,
-              tvMessage: failure.message));
+              tvDetailState: RequestState.Error, tvMessage: failure.message));
         }, (success) {
           emit(state.copyWith(
               tvRecomendation: success,
               tvDetailState: RequestState.Loaded,
-              tvMessage:""));
+              tvMessage: ""));
         });
       });
     });
-
 
     on<OnTvWatchlistStatus>((event, emit) async {
       final result = await _getWatchlistTvStatus.execute(event.id);
@@ -68,7 +67,7 @@ class TvDetailBloc extends Bloc<TvDetailEvent, TvDetailState> {
       result.fold((failure) {
         emit(state.copyWith(tvMessageWatchlist: failure.message));
       }, (success) {
-        emit(state.copyWith(tvMessageWatchlist: success));
+        emit(state.copyWith(tvMessageWatchlist: success, tvIsAdded: false));
       });
     });
 
@@ -77,7 +76,7 @@ class TvDetailBloc extends Bloc<TvDetailEvent, TvDetailState> {
       result.fold((failure) {
         emit(state.copyWith(tvMessageWatchlist: failure.message));
       }, (success) {
-        emit(state.copyWith(tvMessageWatchlist: success));
+        emit(state.copyWith(tvMessageWatchlist: success, tvIsAdded: true));
       });
     });
   }

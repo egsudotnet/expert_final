@@ -11,7 +11,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
 
 class TvDetailPage extends StatefulWidget {
-  static const ROUTE_NAME = '/detail';
+  static const ROUTE_NAME = '/detail-tv';
 
   final int id;
   TvDetailPage({required this.id});
@@ -24,16 +24,39 @@ class _TvDetailPageState extends State<TvDetailPage> {
   @override
   void initState() {
     super.initState();
+
     Future.microtask(() {
       Provider.of<TvDetailBloc>(context, listen: false)
           .add(OnTvDetail(widget.id));
-        });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<TvDetailBloc, TvDetailState>(
+      body: BlocConsumer<TvDetailBloc, TvDetailState>(
+        listener: (context, state) {
+          String message = state.tvMessageWatchlist;
+
+          if (message == watchlistAddSuccessMessage ||
+              message == watchlistRemoveSuccessMessage) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(message),
+                duration: Duration(seconds: 2, milliseconds: 0)));
+          } else {
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    content: Text(message),
+                  );
+                });
+          }
+        },
+        listenWhen: (previousState, currentState) =>
+            previousState.tvMessageWatchlist !=
+                currentState.tvMessageWatchlist &&
+            currentState.tvMessageWatchlist != '',
         builder: (context, state) {
           if (state.tvDetailState == RequestState.Loading) {
             return Center(
@@ -41,8 +64,10 @@ class _TvDetailPageState extends State<TvDetailPage> {
             );
           } else if (state.tvDetailState == RequestState.Loaded) {
             //  final tv = state.tvDetail!;
+
             return SafeArea(
-              child: DetailContent(state.tvDetail!, state.tvIsAdded, state.tvRecomendation, state.tvMessageWatchlist),
+              child: DetailContent(state.tvDetail!, state.tvIsAdded,
+                  state.tvRecomendation),
             );
           } else if (state.tvDetailState == RequestState.Error) {
             return Text(state.tvMessage);
@@ -58,9 +83,8 @@ class _TvDetailPageState extends State<TvDetailPage> {
 class DetailContent extends StatelessWidget {
   final TvDetail tv;
   final bool isAddedToWatchlist;
-  final List<Tv> recomendations; 
-  final String tvMessageWatchlist;
-  DetailContent(this.tv, this.isAddedToWatchlist, this.recomendations, this.tvMessageWatchlist);
+  final List<Tv> recomendations;
+  DetailContent(this.tv, this.isAddedToWatchlist, this.recomendations);
 
   @override
   Widget build(BuildContext context) {
@@ -101,33 +125,13 @@ class DetailContent extends StatelessWidget {
                                   Future.microtask(() => {
                                         context
                                             .read<TvDetailBloc>()
-                                            .add(OnTvWatchlistSave(tv)),
-                                        context.read<TvDetailBloc>().add(
-                                            OnTvWatchlistStatus(tv.id))
+                                            .add(OnTvWatchlistSave(tv))
                                       });
                                 } else {
                                   Future.microtask(() => {
                                         context
                                             .read<TvDetailBloc>()
-                                            .add(OnTvWatchlistRemove(tv)),
-                                        context.read<TvDetailBloc>().add(
-                                            OnTvWatchlistStatus(tv.id))
-                                      });
-                                }
-
-                                String message = tvMessageWatchlist;
-
-                                if (message == watchlistAddSuccessMessage ||
-                                    message == watchlistRemoveSuccessMessage) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(content: Text(message)));
-                                } else {
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return AlertDialog(
-                                          content: Text(message),
-                                        );
+                                            .add(OnTvWatchlistRemove(tv))
                                       });
                                 }
                               },
@@ -172,35 +176,34 @@ class DetailContent extends StatelessWidget {
                               style: kHeading6,
                             ),
                             Container(
-                                    height: 150,
-                                    child: ListView.builder(
-                                      scrollDirection: Axis.horizontal,
-                                      itemBuilder: (context, index) {
-                                        final tv = recomendations[index];
-                                        return Padding(
-                                          padding: const EdgeInsets.all(4.0),
-                                          child: InkWell(
-                                            onTap: () {
-                                              Navigator.pushReplacementNamed(
-                                                context,
-                                                TvDetailPage.ROUTE_NAME,
-                                                arguments: tv.id,
-                                              );
-                                            },
-                                            child: ClipRRect(
-                                              borderRadius: BorderRadius.all(
-                                                Radius.circular(8),
-                                              ),
-                                              child: ImageCard(
-                                                  pathImage:
-                                                      tv.posterPath ?? ""),
-                                            ),
-                                          ),
+                              height: 150,
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index) {
+                                  final tv = recomendations[index];
+                                  return Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: InkWell(
+                                      onTap: () {
+                                        Navigator.pushReplacementNamed(
+                                          context,
+                                          TvDetailPage.ROUTE_NAME,
+                                          arguments: tv.id,
                                         );
                                       },
-                                      itemCount: recomendations.length,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(8),
+                                        ),
+                                        child: ImageCard(
+                                            pathImage: tv.posterPath ?? ""),
+                                      ),
                                     ),
-                                  )
+                                  );
+                                },
+                                itemCount: recomendations.length,
+                              ),
+                            )
                           ],
                         ),
                       ),
