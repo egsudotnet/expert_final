@@ -6,7 +6,7 @@
 <img src='https://github.com/egsudotnet/expert_final/blob/main/lampiran-screenshot/Build-CI.png'/>
 
 # Crashlytics
-https://github.com/egsudotnet/expert_final/blob/main/lampiran-screenshot/Crashlytics.png
+<img src='https://github.com/egsudotnet/expert_final/blob/main/lampiran-screenshot/Crashlytics.png'/>
 
 # Analytics
-https://github.com/egsudotnet/expert_final/blob/main/lampiran-screenshot/Analytics.png
+<img src='https://github.com/egsudotnet/expert_final/blob/main/lampiran-screenshot/Analytics.png'/>
