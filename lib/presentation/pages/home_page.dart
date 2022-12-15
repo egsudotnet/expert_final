@@ -210,7 +210,7 @@ class ResultTv extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildSubHeading(
-            title: 'Popular',
+            title: 'Now Playing',
             onTap: () =>
                 Navigator.pushNamed(context, TvNowPlayingPage.ROUTE_NAME),
           ),

@@ -23,3 +23,6 @@ class DatabaseFailure extends Failure {
 class CommonFailure extends Failure {
   CommonFailure(String message) : super(message);
 }
+class SslFailure extends Failure {
+  SslFailure(String message) : super(message);
+}

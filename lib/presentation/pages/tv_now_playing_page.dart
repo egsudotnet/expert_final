@@ -22,7 +22,7 @@ class _TvNowPlayingPageState extends State<TvNowPlayingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Now Playing Today Tvs'),
+        title: Text('Now Playing Today TVs'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
